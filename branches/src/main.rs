@@ -1,10 +1,20 @@
 fn main() {
-    let condition = true;
-    let number = if condition { 5 } else { 6 };
+    let mut count = 0;
+    'counting_up: loop {
+        let mut remaining = 10;
 
-    println!("Value of number: {number}");
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
 
-    let number2 = if condition { 5 } else { "six" };
-
-    println!("Value of number: {number}")
+        count += 1;
+    }
+    println!("End count = {count}");
 }
