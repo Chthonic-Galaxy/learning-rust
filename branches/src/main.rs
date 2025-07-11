@@ -1,10 +1,7 @@
 fn main() {
-    let a = [10, 20, 30, 40, 50];
-    let mut index = 0;
+    let a = [1, 2, 3, 4, 5];
 
-    while index < 5 {
-        println!("The vakue is {}", a[index]);
-
-        index += 1;
+    for element in a {
+        println!("The value is: {element}");
     }
 }
