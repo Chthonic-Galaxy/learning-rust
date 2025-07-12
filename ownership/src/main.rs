@@ -1,10 +1,8 @@
 fn main() {
-    let n = 5;
-    let y = minus_one(n);
+    let a= Box::new([1; 1000000]);
+    let b = Box::new([1; 1000000]);
 
-    println!("The value of y={y}, and of n={n}");
-}
-
-fn minus_one(x: i32) -> i32{
-    x - 1
+    for i in a.iter() {
+        println!("{i}")
+    }
 }
