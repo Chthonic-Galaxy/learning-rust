@@ -1,8 +1,11 @@
 fn main() {
-    let a= Box::new([1; 1000000]);
-    let b = Box::new([1; 1000000]);
+    let first = String::from("Ferris");
+    let first_clone = first.clone();
+    let full = add_suffix(first);
+    println!("{full}, originally {first_clone}");
+}
 
-    for i in a.iter() {
-        println!("{i}")
-    }
+fn add_suffix(mut name: String) -> String {
+    name.push_str(" Jr.");
+    name
 }
