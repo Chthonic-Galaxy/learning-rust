@@ -1,11 +1,10 @@
 fn main() {
-    let first = String::from("Ferris");
-    let first_clone = first.clone();
-    let full = add_suffix(first);
-    println!("{full}, originally {first_clone}");
+    let m1 = String::from("Hello");
+    let m2 = String::from("World");
+    greet(m1, m2);
+    let s = format!("{} {}", m1, m2);
 }
 
-fn add_suffix(mut name: String) -> String {
-    name.push_str(" Jr.");
-    name
+fn greet(g1: String, g2: String) {
+    println!("{} {}!", g1, g2);
 }
