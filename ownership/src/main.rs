@@ -1,16 +1,39 @@
+// fn main() {
+//     let mut s = String::from("hello world");
+
+//     let word = first_word(&s);
+
+//     println!("FW is {word}");
+//     s.clear();
+
+// }
+
+// fn first_word(s: &String) -> &str {
+//     let bytes = s.as_bytes();
+
+//     for (i, &item) in bytes.iter().enumerate() {
+//         if item == b' ' {
+//             return &s[0..i];
+//         }
+//     }
+
+//     &s[..]
+// }
+
 fn main() {
-    let x: Box<i32> = Box::new(-1);
-    let x_abs1 = i32::abs(*x);
-    let x_abs2 = x.abs();
-    assert_eq!(x_abs1, x_abs2);
+    let x = Box::new(0);
+    let y = Box::new(&x);
 
-    let r: &Box<i32> = &x;
-    let r_abs1 = i32::abs(**r);
-    let r_abs2 = r.abs();
-    assert_eq!(r_abs1, r_abs2);
+    let b = ***y;
+    assert_eq!(b, 0);
+    println!("{}", b);
 
-    let s = String::from("Hello");
-    let s_len1 = str::len(&s);
-    let s_let2 = s.len();
-    assert_eq!(s_len1, s_let2);
+
+  println!(
+    "&String={} &str={}",
+    std::mem::size_of::<&String>(),
+    std::mem::size_of::<&str>(),
+  );
+
+
 }

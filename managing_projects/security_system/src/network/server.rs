@@ -1,0 +1,1 @@
+pub fn hack_nsa() { println!("Hacked") }
