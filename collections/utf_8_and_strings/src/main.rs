@@ -63,13 +63,13 @@ fn main() {
     let s = format!("{s1}-{s2}-{s3}");
     println!("{s}");
 
-    let wierd_word = "नमस्ते".to_string();
+    let weird_word = "नमस्ते".to_string();
     //way 1
-    for i in (0..wierd_word.len()).skip(3).step_by(3) {
-        println!("{}", &wierd_word[i - 3..i]);
+    for i in (0..weird_word.len()).skip(3).step_by(3) {
+        println!("{}", &weird_word[i - 3..i]);
     }
     //way 2
-    for ch in wierd_word.chars() {
+    for ch in weird_word.chars() {
         println!("{ch}");
     }
     // String are not as simple as it seem
