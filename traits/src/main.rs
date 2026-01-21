@@ -12,6 +12,10 @@ trait Summary {
     fn summarize_headline(&self) -> String;
 }
 
+trait TransformTo<TargetType> {
+    fn transform(&self) -> TargetType;
+}
+
 struct NewArticle {
     headline: String,
     author: String,
@@ -77,6 +81,20 @@ impl<T: Display + PartialOrd> Pair<T> {
 //     }
 // }
 
+struct MyNumber(i32);
+
+impl TransformTo<String> for MyNumber {
+    fn transform(&self) -> String {
+        self.0.to_string()
+    }
+}
+
+impl TransformTo<f64> for MyNumber {
+    fn transform(&self) -> f64 {
+        self.0 as f64
+    }
+}
+
 fn main() {
     let article = NewArticle {
         headline: "The wild Forest".to_string(),
@@ -87,5 +105,14 @@ fn main() {
 
     note(&article);
 
-    println!("{}", article.to_string())
+    // println!("{}", article.to_string())
+
+    let n1 = MyNumber(2);
+    println!("{}", TransformTo::<f64>::transform(&n1));
+    println!("{}", TransformTo::<String>::transform(&n1)); // No context - Fully Qualified Syntax
+    ingest_string(&n1.transform()); // From context
+}
+
+fn ingest_string(item: &String) {
+    println!("String: {}", item);
 }
