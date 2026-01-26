@@ -1,22 +1,72 @@
-use clap::Parser;
+use clap::{Args, Parser, Subcommand, ValueEnum, command};
 
-/// Simple program to greet a person
-#[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
-struct Args {
-    /// Name of the person to greet
+#[derive(Parser)]
+#[command(name = "SuperclAppi")]
+#[command(author = "SclAi's Author")]
+#[command(version = "1.0")]
+#[command(about = "Does awesome things", long_about = None)]
+struct Cli {
     #[arg(short, long)]
-    name: String,
+    verbose: bool,
 
-    /// Number of times to greet
-    #[arg(short, long, default_value_t = 1)]
-    count: u8,
+    #[arg(short, long, value_name = "FILE")]
+    config: Option<String>,
+
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Adds a file
+    Add {
+        /// File path to add
+        #[arg(required = true)]
+        path: String,
+
+        /// Priority level
+        #[arg(short, long, value_enum, default_value_t = Priority::Low)]
+        priority: Priority,
+    },
+
+    /// Drops a file
+    Drop { name: String },
+
+    /// Group example
+    Network(NetworkArgs),
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
+enum Priority {
+    Low,
+    High,
+    Critical,
+}
+
+#[derive(Args)]
+struct NetworkArgs {
+    #[arg(long)]
+    ip: String,
+    #[arg(long, default_value_t = 8080)]
+    port: u16,
 }
 
 fn main() {
-    let args = Args::parse();
+    let cli = Cli::parse();
 
-    for _ in 0..args.count {
-        println!("Hello {}!", args.name);
+    if cli.verbose {
+        println!("Verbose mode ON");
+    }
+
+    match &cli.command {
+        Commands::Add { path, priority } => {
+            println!("Adding {} with {:?} priority", path, priority);
+        }
+        Commands::Drop { name } => {
+            println!("Dropping {}", name);
+        }
+        Commands::Network(args) => {
+            println!("Connecting to {}:{}", args.ip, args.port);
+        }
     }
 }
